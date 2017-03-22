@@ -1,0 +1,229 @@
+SHELL := /bin/sh
+
+empty :=
+space := $(empty) $(empty)
+filter_vals := : ..
+STRIP_CYGDRIVE = $(subst /cygdrive/,$(empty),$1)
+SPLIT_CYGPATH = $(subst /,$(space),$(STRIP_CYGDRIVE))
+REPLACE_DRIVE = $(patsubst $(firstword $(SPLIT_CYGPATH)),$(addsuffix :,$(firstword $(SPLIT_CYGPATH))),$(SPLIT_CYGPATH))
+RECONSTRUCT_PATH = $(subst $(space),/,$(REPLACE_DRIVE))
+WIN_PATH = $(if $(filter-out $(filter_vals),$1),$(RECONSTRUCT_PATH),$1)
+
+CHIBIOS := ../sc/ChibiOS
+# <!-- START OF GENERATED VARIABLES
+CSRCS := \
+$(CHIBIOS)/os/common/startup/ARMCMx/compilers/GCC/crt1.c \
+$(CHIBIOS)/os/common/startup/ARMCMx/compilers/GCC/vectors.c \
+$(CHIBIOS)/os/hal/src/hal.c \
+$(CHIBIOS)/os/hal/src/hal_buffers.c \
+$(CHIBIOS)/os/hal/src/hal_queues.c \
+$(CHIBIOS)/os/hal/src/hal_mmcsd.c \
+$(CHIBIOS)/os/hal/src/hal_st.c \
+$(CHIBIOS)/os/hal/src/hal_pal.c \
+$(CHIBIOS)/os/hal/src/hal_i2c.c \
+$(CHIBIOS)/os/hal/src/hal_uart.c \
+$(CHIBIOS)/os/hal/ports/common/ARMCMx/nvic.c \
+$(CHIBIOS)/os/hal/ports/STM32/STM32L4xx/hal_lld.c \
+$(CHIBIOS)/os/hal/ports/STM32/LLD/DMAv1/stm32_dma.c \
+$(CHIBIOS)/os/hal/ports/STM32/LLD/TIMv1/hal_st_lld.c \
+$(CHIBIOS)/os/hal/ports/STM32/LLD/GPIOv3/hal_pal_lld.c \
+$(CHIBIOS)/os/hal/ports/STM32/LLD/I2Cv2/hal_i2c_lld.c \
+$(CHIBIOS)/os/hal/ports/STM32/LLD/USARTv2/hal_uart_lld.c \
+${CHIBIOS}/os/hal/osal/rt/osal.c \
+$(CHIBIOS)/os/rt/src/chsys.c \
+$(CHIBIOS)/os/rt/src/chdebug.c \
+$(CHIBIOS)/os/rt/src/chvt.c \
+$(CHIBIOS)/os/rt/src/chschd.c \
+$(CHIBIOS)/os/rt/src/chthreads.c \
+$(CHIBIOS)/os/rt/src/chtm.c \
+$(CHIBIOS)/os/rt/src/chstats.c \
+$(CHIBIOS)/os/rt/src/chregistry.c \
+$(CHIBIOS)/os/rt/src/chsem.c \
+$(CHIBIOS)/os/rt/src/chmtx.c \
+$(CHIBIOS)/os/rt/src/chcond.c \
+$(CHIBIOS)/os/rt/src/chevents.c \
+$(CHIBIOS)/os/rt/src/chmsg.c \
+$(CHIBIOS)/os/rt/src/chdynamic.c \
+$(CHIBIOS)/os/common/oslib/src/chmboxes.c \
+$(CHIBIOS)/os/common/oslib/src/chmemcore.c \
+$(CHIBIOS)/os/common/oslib/src/chheap.c \
+$(CHIBIOS)/os/common/oslib/src/chmempools.c \
+$(CHIBIOS)/os/common/ports/ARMCMx/chcore.c \
+$(CHIBIOS)/os/common/ports/ARMCMx/chcore_v7m.c \
+${CHIBIOS}/test/lib/ch_test.c \
+${CHIBIOS}/test/rt/source/test/test_root.c \
+${CHIBIOS}/test/rt/source/test/test_sequence_001.c \
+${CHIBIOS}/test/rt/source/test/test_sequence_002.c \
+${CHIBIOS}/test/rt/source/test/test_sequence_003.c \
+${CHIBIOS}/test/rt/source/test/test_sequence_004.c \
+${CHIBIOS}/test/rt/source/test/test_sequence_005.c \
+${CHIBIOS}/test/rt/source/test/test_sequence_006.c \
+${CHIBIOS}/test/rt/source/test/test_sequence_007.c \
+${CHIBIOS}/test/rt/source/test/test_sequence_008.c \
+${CHIBIOS}/test/rt/source/test/test_sequence_009.c \
+${CHIBIOS}/test/rt/source/test/test_sequence_010.c \
+${CHIBIOS}/test/rt/source/test/test_sequence_011.c \
+${CHIBIOS}/test/rt/source/test/test_sequence_012.c \
+../sc/OsWrapper/Os.c \
+../cfg/board/board.c \
+../cfg/gen/Os_Cfg.c \
+../cfg/gen/UartHndlr_Cfg.c \
+../appl/ui/main.c \
+../appl/hal/led/Led.c \
+../appl/hal/uart/UartHndlr.c
+
+
+CXXSRCS := 
+
+SSRCS := \
+$(CHIBIOS)/os/common/startup/ARMCMx/compilers/GCC/crt0_v7m.S \
+$(CHIBIOS)/os/common/ports/ARMCMx/compilers/GCC/chcoreasm_v7m.S
+
+LDSCRIPTS := \
+../sc/linker/STM32L432xC.ld
+
+INCDIRS := \
+$(CHIBIOS)/os/common/startup/ARMCMx/compilers/GCC \
+$(CHIBIOS)/os/common/startup/ARMCMx/devices/STM32L4xx \
+$(CHIBIOS)/os/common/ext/CMSIS/include \
+$(CHIBIOS)/os/common/ext/CMSIS/ST/STM32L4xx \
+$(CHIBIOS)/os/hal/include \
+$(CHIBIOS)/os/hal/ports/common/ARMCMx \
+$(CHIBIOS)/os/hal/ports/STM32/STM32L4xx \
+$(CHIBIOS)/os/hal/ports/STM32/LLD/DMAv1 \
+$(CHIBIOS)/os/hal/ports/STM32/LLD/TIMv1 \
+$(CHIBIOS)/os/hal/ports/STM32/LLD/GPIOv3 \
+$(CHIBIOS)/os/hal/ports/STM32/LLD/I2Cv2 \
+$(CHIBIOS)/os/hal/ports/STM32/LLD/USARTv2 \
+${CHIBIOS}/os/hal/osal/rt \
+$(CHIBIOS)/os/rt/include \
+$(CHIBIOS)/os/common/oslib/include \
+$(CHIBIOS)/os/common/ports/ARMCMx \
+$(CHIBIOS)/os/common/ports/ARMCMx/compilers/GCC \
+$(CHIBIOS)/os/various \
+${CHIBIOS}/test/lib \
+${CHIBIOS}/test/rt \
+${CHIBIOS}/test/rt/source/test \
+$(CHIBIOS)/os/license \
+../sc/OsWrapper \
+../cfg/board \
+../cfg/gen \
+../cfg \
+../appl \
+../appl/hal/led \
+../appl/hal/uart \
+../appl/misc \
+../appl/ui
+
+CDIRS := 
+
+CXXDIRS := 
+
+SDIRS := 
+
+USERLIBS :=
+USEROBJS :=
+# <!-- END OF GENERATED VARIABLES
+
+RELINCLIST := $(foreach dir, $(INCDIRS), $(shell echo -n "-I$(dir)"))
+
+INCLIST := $(foreach dir, $(abspath $(INCDIRS)), $(call WIN_PATH,-I$(dir)))
+LDLIST := $(foreach script, $(abspath $(LDSCRIPTS)), $(call WIN_PATH,-T$(script)))
+LDDIRS := $(foreach script, $(abspath $(LDSCRIPTS)), $(call WIN_PATH,-L$(dir $(script))))
+
+# General path defines
+ROOTDIR := $(abspath ..)
+OUTDIR := $(ROOTDIR)/out
+OBJDIR := $(ROOTDIR)/obj
+TMPDIR := $(ROOTDIR)/tmp
+
+ABSOBJDIR := $(call WIN_PATH,$(abspath $(OBJDIR)))
+ABSOUTDIR := $(call WIN_PATH,$(abspath $(OUTDIR)))
+
+ABSASMSRCS := $(call WIN_PATH,$(abspath $(SSRCS)))
+ABSCSRCS := $(call WIN_PATH,$(abspath $(CSRCS)))
+ABSCXXSRCS := $(call WIN_PATH,$(abspath $(CXXSRCS)))
+
+# Project relevant defines
+MCU := cortex-m4
+PROJNAME := stm32l432kc-nucleo32
+
+PROJEXEC := 
+PROJMAP := 
+
+PROJDEF := -DDEBUG -DTRACE
+
+# Enables the use of FPU (no, softfp, hard).
+USE_FPU := hard
+
+ifeq ($(USE_FPU),)
+  USE_FPU = no
+endif
+
+ifneq ($(USE_FPU),no)
+  FPU_OPT := -mfloat-abi=$(USE_FPU) -mfpu=fpv4-sp-d16 -fsingle-precision-constant
+  PROJDEF += -DCORTEX_USE_FPU=TRUE
+else
+  FPU_OPT :=
+  PROJDEF += -DCORTEX_USE_FPU=FALSE
+endif
+
+GENERAL_OPT := -O2 -ggdb -fomit-frame-pointer -falign-functions=16
+
+CFLAGS := -c -mcpu=$(MCU) -mthumb -Wextra -Wall \
+           $(GENERAL_OPT) \
+ 		   -fmessage-length=0 -fsigned-char \
+ 		   -ffunction-sections -fdata-sections -fno-common \
+ 		   -ffreestanding -fno-move-loop-invariants \
+		   -std=gnu11 \
+		   $(PROJDEF) \
+		   $(FPU_OPT)
+CXXFLAGS := -c -mcpu=$(MCU) -mthumb -Wextra \
+             $(GENERAL_OPT) \
+		     -fmessage-length=0 -fsigned-char \
+		     -ffunction-sections -fdata-sections -fno-common \
+		     -ffreestanding -fno-move-loop-invariants -fno-rtti \
+			 -std=gnu++11 -fabi-version=0 \
+			 $(PROJDEF) \
+			 $(FPU_OPT)
+
+ASFLAGS := -c -mcpu=$(MCU) -mthumb -Wextra -x assembler-with-cpp \
+		   $(GENERAL_OPT) \
+		   -fmessage-length=0 -fsigned-char \
+		   -ffunction-sections -fdata-sections -fno-common \
+		   -ffreestanding -fno-move-loop-invariants  \
+		   $(PROJDEF) \
+		   $(FPU_OPT)
+ 
+LDFLAGS := -mcpu=$(MCU) -mthumb -Wextra -nostartfiles -Xlinker --gc-sections --specs=nano.specs \
+		    $(GENERAL_OPT) \
+		    -fmessage-length=0 -fsigned-char \
+		    -ffunction-sections -fdata-sections -fno-common \
+		    -ffreestanding -fno-move-loop-invariants -flto \
+		    $(LDDIRS) \
+		    $(LDLIST) \
+		    $(FPU_OPT) \
+		    -Wl,-Map,$(call WIN_PATH,$(abspath $(OUTDIR)/$(PROJNAME).map)),--defsym=__main_stack_size__=0x400,--defsym=__process_stack_size__=0x400 \
+		    -o $(call WIN_PATH,$(abspath $(OUTDIR)/$(PROJNAME).elf)) \
+		    $(call WIN_PATH,$(abspath $(OBJDIR)/*.o)) \
+		    $(call WIN_PATH,$(abspath $(USEROBJS))) \
+		    $(call WIN_PATH,$(abspath $(USERLIBS)))
+
+CPPFLAGS =
+
+CPFLAGS = 
+FPFLAGS = 
+
+ODFLAGS := -S -x --syms
+
+# Define the compiler/tools variables here
+CC := arm-none-eabi-gcc 
+CXX := arm-none-eabi-g++ 
+LD := arm-none-eabi-gcc 
+AS := arm-none-eabi-gcc 
+OD := arm-none-eabi-objdump 
+CP := arm-none-eabi-objcopy 
+FP := 
+SZ := arm-none-eabi-size 
+
+USE_ECLIPSE := yes
